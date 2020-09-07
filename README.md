@@ -90,7 +90,7 @@ zabbixConf:
     admin_password: zabbix        # Change to an unique and secure password
 ~~~  
 ### Creating a bibigrid alias
-To keep the cluster setup process simple you can set an alias for the BiBiGrid JAR file installed before. 
+To keep the cluster setup process simple you can set an alias for the BiBiGrid JAR file installed before.  
 The Unix command should look like the following (depending on JAR filename):
 ~~~BASH
 > alias bibigrid="java -jar /path/to/bibigrid-*.jar"
@@ -105,6 +105,7 @@ Now we can create the first cluster with our previously generated configuration:
 > bibigrid -c -v -o configuration.yml
 ~~~
 If no problem occurs, our cluster should be ready in a couple minutes...  
+
 You can now list your cluster(s) via the listing command:  
 ~~~BASH
 > bibigrid --list
