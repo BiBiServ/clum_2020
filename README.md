@@ -20,7 +20,9 @@ Therefore you may source the OpenStack RC File v3 ¹ by clicking on your Account
 ![Pop-Up Menü oben rechts](/popup_rc-file.png)  
 
 After downloading you have to open up a terminal and source the downloaded file (e.g. bibiserv-openrc.sh) to get the credentials into your environment.  
-`> source FILE.sh`  
+~~~BASH
+> source FILE.sh
+~~~  
 Note, that you have to source the file in every new terminal, if you want to access OpenStack options.  
 
 ¹ Alternatively, you can [set up a credentials file](https://github.com/BiBiServ/bibigrid/blob/master/bibigrid-openstack/docs/Credentials_Setup.md) (Option 2).
@@ -86,4 +88,31 @@ zabbixConf:
     timezone: Europe/Berlin       # Default is "Europe/Berlin"
     server_name: bibigrid         # Name of Server. Default is "bibigrid"
     admin_password: zabbix        # Change to an unique and secure password
+~~~  
+### Creating a bibigrid alias
+To keep the cluster setup process simple you can set an alias for the BiBiGrid JAR file installed before. 
+The Unix command should look like the following (depending on JAR filename):
+~~~BASH
+> alias bibigrid="java -jar /path/to/bibigrid-*.jar"
 ~~~
+### BiBiGrid commands - Creating the first Cluster
+For information about the command set, you may now check the help command:  
+~~~BASH
+> bibigrid --help
+~~~
+Now we can create the first cluster with our previously generated configuration:  
+~~~BASH
+> bibigrid -c -v -o configuration.yml
+~~~
+If no problem occurs, our cluster should be ready in a couple minutes...  
+You can now list your cluster(s) via the listing command:  
+~~~BASH
+> bibigrid --list
+~~~
+
+### Monitoring your cluster setup
+To get an overview about how your cluster is working, you can use *Zabbix* for monitoring.  
+Therefore type `http://ip.of.your.master/zabbix` into your browser address bar.  
+The public-ip of your cluster should be visible with the list command and is also displayed after setup.
+
+For a detailed documentation please visit the [Getting Started Readme](https://github.com/BiBiServ/bibigrid/blob/master/docs/README.md).
