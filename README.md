@@ -32,7 +32,7 @@ First up, you need to have a SSH-key for communication with the remote compute s
 - Open an editor (Kate, Gedit or **without GUI** nano or vim)  
 - Copy & Paste the following configuration  
 - save the file as *configuration.yml*.  
-~~~BASH
+~~~
 #use openstack
 mode: openstack
 
@@ -110,6 +110,12 @@ You can now list your cluster(s) via the listing command:
 ~~~BASH
 > bibigrid --list
 ~~~
+### New Feature: Manual Cluster Scaling
+In some cases, you may want to scale down your cluster, if you don't need as much worker instances or scale up, if you want to append some.
+We now try to scale down one worker instance of our first worker batch previously configured.
+```BASH
+> bibigrid -sd <bibigrid-id> 1 1
+```
 
 ### Monitoring your cluster setup
 To get an overview about how your cluster is working, you can use *Zabbix* for monitoring.  
