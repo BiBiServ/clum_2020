@@ -2,15 +2,12 @@
 Teaching aids / [slides for the de.NBI cloud user meeting 2020]()  
 
 ## Setup of BiBiGrid
-### Clone repository and Build package
-At first, we need to clone the repository of the [BiBiGrid-Tool](https://github.com/BiBiServ/bibigrid/).
+### Download the binary jar (or clone & build repository)
+At first, you can [download the BiBiGrid](https://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.1.1.jar).  
+Alternatively, you may clone the [BiBiGrid repository](https://github.com/BiBiServ/bibigrid/) and build it yourself with mvn in the 'bibigrid' directory.
 ~~~BASH
 > git clone https://github.com/BiBiServ/bibigrid.git
 > cd bibigrid
-~~~
-Then we can build the OpenStack package with the following command:
-
-~~~BASH
 > mvn -P openstack clean package
 ~~~
 ### Credentials
@@ -106,7 +103,12 @@ Now we can create the first cluster with our previously generated configuration:
 ~~~
 If no problem occurs, our cluster should be ready in a couple minutes...  
 
-You can now list your cluster(s) via the listing command:  
+-----------------------------------------------------------------------  
+[How to use Ansible?]()  
+
+-----------------------------------------------------------------------  
+
+After the cluster setup, you can now list your cluster(s) via the listing command:  
 ~~~BASH
 > bibigrid --list
 ~~~
@@ -116,6 +118,15 @@ We now try to scale down one worker instance of our first worker batch previousl
 ```BASH
 > bibigrid -sd <bibigrid-id> 1 1
 ```
+### Job Scheduling with SLURM workload manager
+Open Source tool to execute tasks on the cluster instead of a single computer.
+#### Commands
+- scontrol: View and/or modify Slurm state
+- sinfo:    Reports state of Slurm partitions and nodes
+- squeue:   Reports the state of jobs or job steps
+- scancel:  Cancel a pending or running job or job step
+- srun:     Submit a job for execution
+- ...
 
 ### Monitoring your cluster setup
 To get an overview about how your cluster is working, you can use *Zabbix* for monitoring.  
