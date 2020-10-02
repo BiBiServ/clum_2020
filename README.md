@@ -120,7 +120,7 @@ Open Source tool to execute tasks on the cluster instead of a single computer.
 
 ## Hello World, Hello BiBiGrid!
 
-To see how the bibigrid works in action, we start with a typical example : *Hello World !*
+To see how the cluster with slurm works in action, we start with a typical example : *Hello World !*
 
 - Connect to your cluster using the Theia Web-IDE (You may use another terminal here)
 `
@@ -141,7 +141,7 @@ sleep 10
 - Make our helloworld script executable:
 `chmod u+x helloworld.sh`
 
-- Submit this script as array job 50 times : `sbatch --array=1-50 --job-name=helloworld hello-world.sh `
+- Submit this script as array job 50 times : `sbatch --array=1-50 --job-name=helloworld hello-world.sh`
 - See the status of our cluster: `squeue`
 - See the output: `cat slurm-*.out`
 
