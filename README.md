@@ -138,6 +138,8 @@ sleep 10
 - Open a terminal and change into the spool directory. 
 `cd /vol/spool`
 
+![Theia WebIDE Terminal](/theia_ide_terminal.png)
+
 - Make our helloworld script executable:
 `chmod u+x helloworld.sh`
 
@@ -157,12 +159,16 @@ If you have a running cluster, that is barely working to full capacity, it is re
 To get an overview about how your cluster is working, you can use *Zabbix* for monitoring.  
 Therefore it is necessary to use a port-forwarding in order to access the zabbix server on your localhost browser.
 
-Login to the cluster using `ssh -L <local-port>:localhost:80 user@ip-address`.
-As the `<local-port>` you may choose *50000* or some port in that range, since these are unlikely to be already used.
+Login to the cluster: `ssh -L <local-port>:localhost:80 user@ip-address`.
+As the `<local-port>` you may choose *50000* or some port in that range, since these are unlikely to be already used.  
 The `ìp-address` is the public address of your master instance, that you already got back after cluster finish in the line `export BIBIGRID_MASTER=<ip-address>`.   Alternatively, you can use the `list` command from before to get an overview and copy the respective address in the row `public-ip`.
 
 After you have successfully logged in into your master instance, type `http://localhost:<local-port>/zabbix` into your browser address bar. Accordingly, it is the same `<local-port>` that you have chosen before.   
 The public-ip of your cluster should be visible with the list command `bibigrid -l` and is also displayed after setup.
+
+![Zabbix Login](/zabbix_login.png)
+
+You can login with the 'admin' user and the previously set admin password.
 
 For a detailed documentation please visit the [Getting Started Readme](https://github.com/BiBiServ/bibigrid/blob/master/docs/README.md).
 
