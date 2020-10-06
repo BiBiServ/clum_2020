@@ -251,56 +251,52 @@ sleep 10
 - Make our helloworld script executable:
 `chmod u+x helloworld.sh`
 
-- Submit this script as array job 50 times: `sbatch --array=1-50 --job-name=helloworld hello-world.sh`
+- Submit this script as an array job 50 times: `sbatch --array=1-50 --job-name=helloworld hello-world.sh`
 - See the status of our cluster: `squeue`
 - See the output: `cat slurm-*.out`
 
-## Manual Cluster Scaling (NEW)
-In some cases, you may want to scale down your cluster, if you don't need as much worker instances or scale up, if you want to append some.
+## Manual cluster scaling (NEW)
+In some cases, you may want to scale down your cluster when you don't need all the worker instances or scale up when you need more of them.
 We scale down one worker instance of our first worker batch previously configured.
 
 ```BASH
 > bibigrid -o configuration.yml -sd <bibigrid-id> 1 1
 ```
 
-Scaling down is quite fast, only the master node have to be reconfigured. Check the number of working nodes running `sinfo` on the master node. Since we need three workers for the 2nd part of this workshop we now scale up one worker instance ...
+Scaling down is quite fast, only the master node has to be reconfigured. Check the number of working nodes running `sinfo` on the master node. Since we need three workers for the 2nd part of this workshop we now scale up by one worker instance ...
 
 ```BASH
 > bibigrid -o configuration.yml -su <bibigrid-id> 1 1
 ```
 
-... and check again the number of worker nodes using `info`. Scaling up takes some time (a few minutes) since newly added worker now must be configured from scratch.
-
-*Note: If you have a running cluster, that is barely working to full capacity, it is recommended to scale it down, since there are currently no checks for qeued jobs.*
-
-To scale up 
+... and again check the number of worker nodes using `sinfo`. Scaling up takes some time (a few minutes) since newly added workers are being configured from scratch.
 
 ## Monitoring your cluster setup
 To get an overview about how your cluster is working, you can use *Zabbix* for monitoring.  
-Therefore it is necessary to use a port-forwarding in order to access the zabbix server on your local browser.
+Therefore it is necessary to use port-forwarding in order to access the Zabbix server through your local browser.
 
-Login to the cluster: 
+Log into the cluster: 
 
 ```bash
 ssh -L <local-port>:localhost:80 user@ip-address
 ```
 
-As the `<local-port>` you have to choose a free port on local system (e.g. 8080).  
-The `ìp-address` is the public address of your master instance, that you already got back after cluster finish in the line `export BIBIGRID_MASTER=<ip-address>`.   Alternatively, you can use the `list` command from above to get an overview and copy the respective address in the row `public-ip`.
+As the `<local-port>` you have to choose a free port on your local system (e.g. `8080`).  
+The `ip-address` is the public IP address of your master instance, that you received after cluster launch in the line `export BIBIGRID_MASTER=<ip-address>`.   Alternatively, you can use the `list` command from above to get an overview and copy the respective IP address in the row `public-ip`.
 
-After you have successfully logged in into your master instance, type `http://localhost:<local-port>/zabbix` into your browser address bar. Accordingly, it is the same `<local-port>` that you have chosen before.   
-The public-ip of your cluster should be visible with the list command `bibigrid -l` and is also displayed after setup.
+After you have successfully logged into your master instance, type `http://localhost:<local-port>/zabbix` into your browser address bar. Accordingly, it is the same `<local-port>` have chosen before.   
+The public IP of your cluster should be visible with the list command `bibigrid -l` and is also displayed after setup.
 
 ![Zabbix Login](images/zabbix_login.png)
 
-You can login with the 'admin' user and the previously set admin password.
+You can log in with the `admin` user and the previously set admin password.
 
 For a detailed documentation please visit the [Getting Started Readme](https://github.com/BiBiServ/bibigrid/blob/master/docs/README.md).
 
 
-##  Using Ansible and run a bigger example
+##  Using Ansible and running a bigger example
 
-Ansible is used by BiBiGrid to configure all started instances. Therefore it can also be used to modify an existing cluster.
+Ansible is used by BiBiGrid to configure all launched instances. It can also be used to modify an existing cluster.
 
 -> [Ansible in a nutshell](https://gitlab.ub.uni-bielefeld.de/denbi/ansible-course)
 
@@ -312,7 +308,7 @@ To terminate a running cluster you can simply use:
 bibigrid -o configuration.yml -t <clusterid>
 ```
 
-Optionally, it is possible to terminate more than one cluster appending the other ids as follows:
+Optionally, it is possible to terminate more than one cluster appending the other IDs as follows:
 
 ```bash
 bibigrid -o configuration.yml -t <clusterid1> <clusterid2> <clusterid3> ...
