@@ -5,13 +5,13 @@ Teaching aids / [slides for the de.NBI cloud user meeting 2020]()
 
 ### Requirements
 
-BiBiGrid is written in Java and needs therefor a Java Runtime Environment (>= 8) installed. Additionally a terminal and a ssh-client is needed to work with BiBiGrid
+BiBiGrid is written in Java and needs a Java Runtime Environment Version 8 or greater installed. Additionally a terminal client and an SSH client are needed.
 
 ### Download 
-The easiest and recommendend way to use BiBiGrid is to download the [latest prebuild binary](https://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.2.jar).  
+The easiest and recommended way to use BiBiGrid is to download the [latest prebuilt binary](https://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.2.jar).  
 
 ### Build from Source
-Alternatively, you may clone the [BiBiGrid repository](https://github.com/BiBiServ/bibigrid/) and build it by yourself using maven, which requires a Java Development Kit (>= 8) and maven (>= 3.9) installed.
+Alternatively, you may clone the [BiBiGrid repository](https://github.com/BiBiServ/bibigrid/) and build it yourself using Maven, which requires a Java Development Kit (>= 8) and Maven (>= 3.9) installed.
 
 ``` BASH
 > git clone https://github.com/BiBiServ/bibigrid.git
@@ -24,29 +24,29 @@ BiBiGrid needs access to the Openstack API to work properly.
 
 #### Get API Access 
 
-The access to the de.NBI cloud sites web-based user interface (Openstack Dashboard) is realized by a SSO mechanism using Elixir AAI. **An API password is not set by default.**
+The access to the de.NBI Cloud sites' web-based user interface (Openstack Dashboard) is realized by an SSO mechanism using Elixir AAI. **An API password is not set by default.**
 
-#### Download Openstack RC file 
+#### Download OpenStack RC file 
 
-The OpenStack RC file is a file that contains the environment variables that are necessary to run OpenStack command-line clients. The file contains project-specific environment variables and allows access to the Openstack API. After login into the Openstack Dashboad you can download the *OpenStack RC File v3*  by clicking on your account symbol on the right upper corner.  
+The OpenStack RC file is a file that contains the environment variables necessary to run OpenStack command-line clients. The file contains project-specific environment variables and allows access to the Openstack API. After login into the OpenStack Dashboard you can download the *OpenStack RC File v3*  by clicking on your account symbol in the upper right corner.  
 
 ![Pop-Up Menü oben rechts](images/popup_rc-file.png)  
 
-After downloading you have to open up a terminal and source the downloaded file (e.g. clum2020-openrc.sh) to get the credentials into your environment.  
+After downloading, open up a terminal and source the downloaded file (e.g. clum2020-openrc.sh) to get the credentials into your environment.  
 
 ```BASH
 > source FILE.sh
 ```
   
-_Note: You have to source the RC file in every new terminal, if you want to access OpenStack API._  
+_Note: You have to source the RC file in every new terminal to be able to access the OpenStack API._  
 
-_Note: Application credentials unfortuneatly not an option, because Openstack4J - the library used by BiBiGrid to talk with Openstack - does not support Application credentials._
+_Note: Application credentials are unfortunately not an option, because Openstack4J - the library used by BiBiGrid to talk with OpenStack - does not support them._
 
 ### Configuration
 
-The prefilled configuration template below works on de.NBI cloud site Bielefeld with m at time of writing (10/5/2020). You have to adjust most values when trying this on other de.NBI cloud site.
+The prefilled configuration template below works on the de.NBI cloud site Bielefeld (verified on 2020-10-05). You have to adjust many of the values when trying this on other de.NBI cloud sites.
 
-#### template
+#### Template
 
 ```JSON
 #use openstack
@@ -86,65 +86,65 @@ zabbixConf:
 ``` 
 
 1. [Download](configuration.yml) the prefilled configuration template
-2. Open it with an editor by your choice and replace the **XXXXXXX** values for `subnet` and `zabbixConf.admin_password`
+2. Open it with an editor of your choice and replace the **XXXXXXX** values for `subnet` and `zabbixConf.admin_password`
 
-#### access
-BibiGrid creates a new SSH key-pair (stored at `~/.bibigrid/keys`) for each cluster started. This cluster specific keys are used to connect to master instance. Additionally it is possible to add additional SSH-keys for communication with the remote compute system (not covered by our template above, see BiBigrid documentation for a precise description).\
+#### Access
+BibiGrid creates a new SSH key pair (stored at `~/.bibigrid/keys`) for each cluster started. These cluster specific keys are used to connect to the master instance. It is possible to add additional SSH keys for communication with the remote compute system (not covered by our template above, see BiBigrid documentation for a precise description).
 
-#### ssh-user
-The ssh-user depends on the cloud image your cluster is based on. Since we run on top of Ubuntu 18.04 the ssh-user is ubuntu.
+#### SSH user
+The ssh-user depends on the cloud image your cluster is based on. Since we run on top of Ubuntu 18.04 the ssh-user is `ubuntu`.
 
-#### region
-The region is can be determined easily by running the openstack cli.
+#### Region
+The region can be determined easily by running the OpenStack CLI.
 
 ```bash
 $ openstack region list
 ```
 
-#### availability zone
+#### Availability Zone
 The availability zone where your instances are created.
 
 ```bash 
 $ openstack availability zone list
 ```
 
-#### network
-If you have the permissions to create networks, BiBiGrid offers the possibility to create a new private network connected to an existing router. For our tutorial we work on an existing subnet. Determine the subnet name or id using the cli.
+#### Network
+If you have the permissions to create networks, BiBiGrid offers the possibility to create a new private network connected to an existing router. For our tutorial we work on an existing subnet. Please determine the subnet name or ID using the CLI.
 
 ```BASH
 $ openstack subnet list
 ```
 
-#### instances
-We want to use a default Ubuntu 18.04 image for our tutorial. Determine the id of it using the cmdline client ...
+#### Instances
+We would like to use a default Ubuntu 18.04 operating system image for our tutorial. Determine the ID of it using the CLI ...
 
 ```BASH
 $ openstack image list
 ```
 
-... and add it to the master/worker configuration. 
+... and add it to the master/worker configuration.
 
 
-#### services
-We use a typical cluster configuration for our workshop setup. That means we have to enable a shared fs (nfs), a grid batch scheduler (slurm), a monitoring framework (zabbix) and a web-ide (theia). 
+#### Services
+We use a typical cluster configuration for our workshop setup. That means we have to enable a shared fs (`nfs`), a grid batch scheduler (`slurm`), a monitoring framework (`zabbix`) and a web IDE (`theia`). 
 
 
-### Creating a bibigrid alias
+### Creating a BiBiGrid alias
 To keep the cluster setup process simple you can set an alias for the BiBiGrid JAR file installed before.  
-The Unix command should look like the following (depending on JAR filename):
+The Unix command should look like the following (depending on the JAR filename):
 
 ```BASH
 > alias bibigrid="java -jar /path/to/bibigrid-*.jar"
 ```
 
-### Verfify the configuration
-You can simply check your configuration using :
+### Verify the configuration
+You can simply check your configuration using:
 
 ```BASH
 > bibigrid -o configuration.yml -ch
 ```
 
-### BiBiGrid commands - Start your first Cluster
+### BiBiGrid commands - Start your first cluster
 For information about the command set, you may now check the help command:  
 
 ```BASH
@@ -157,11 +157,11 @@ Now we can create the first cluster with our previously generated configuration:
 > bibigrid -o configuration.yml -c -v 
 ```
 
-If no problem occurs, our cluster should be ready to work with in about 15 minutes ... time for a coffee break  
+If no problem occurs, our cluster should be ready to work within about 15 minutes ... time for a coffee break
 
 ![coffee break](images/coffee_break.jpg)
 
-Since it is possible to start more than one cluster at once, it is possible to list all running clusters (within the same Openstack project):  
+It is possible to have more than one BiBiGrid cluster running simultaneously. List all running clusters (within the same OpenStack project) using:  
 
 ```BASH
 > bibigrid -o configuration.yml --list
@@ -180,18 +180,18 @@ SLUM is an open source and scalable cluster management and job scheduling system
 - `sinfo   `: Reports state of Slurm partitions and nodes
 - `squeue  `: Reports the state of jobs or job steps
 - `scancel `: Cancel a pending or running job or job step
-- `srun    `:  Submit a job for execution
+- `srun    `: Submit a job for execution
 - ...
 
 #### Directory structure
-BiBigrid span a shared filesystem (NFS) between all cluster node. The master acts a NFS server and all clients connects to it.
+BiBiGrid establishes a shared filesystem (NFS) between all cluster nodes. The master acts as an NFS server and all clients connects to it.
 
 - `/vol/spool` -> shared filesystem between all nodes.
-- `/vol/scratch` -> local diskspace (ephemeral disk, if provided)
+- `/vol/scratch` -> local disk space (ephemeral disk, if provided)
 
-## Login into the cluster
+## Log into the cluster via direct SSH access
 
-After a successfull setup ...
+After a successful setup ...
 
 ```BASH
 SUCCESS: Cluster has been configured. 
@@ -211,18 +211,18 @@ bibigrid -t ther0ysuts6vo37
 
 ```
 
-... you can login into the master node. Run `sinfo` to check if there are 3 worker available.
+... you should be able to log into the master node. Run `sinfo` to check if there are 3 workers available.
 
-## Login into the cluster (more comfortable)
+## Log into the cluster through Theia IDE (more comfortable)
 
-BiBiGrid offers a more comfortable way to work with your cloud instances using the WEB-IDE [theia](https://theia.org).
+BiBiGrid offers a more comfortable way to work with your cloud instances using the web IDE [Theia](https://theia.org).
 Let's see how this works together with BiBiGrid.
 
 ![Theia WebIDE Terminal](images/theia_ide_terminal.png)
 
 If the ide option is enabled in the configuration, theia will be run as systemd service on localhost. For security reasons, theia is not binding to a standard network device. A valid certificate and some kind of authentication is needed to create a safe connection, which is not that easy in a dynamic cloud environment.
 
-However, BiBiGrid has the possibility to open a ssh tunnel from the local machine to BiBiGrids master instance and open up a browser window running theia web ide.
+However, BiBiGrid has the possibility to open a SSH tunnel from the local machine to BiBiGrid's master instance and to open up a browser window running Theia web IDE.
 
 ```bash
 bibigrid -o configuration.yml --ide <cluster id>
@@ -232,9 +232,9 @@ bibigrid -o configuration.yml --ide <cluster id>
 
 ## Hello World, Hello BiBiGrid!
 
-To see how the cluster with slurm works in action, we start with a typical example : *Hello World !*
+To see how the cluster with Slurm works in action, we start with a typical example : *Hello World !*
 
-- If not already done, connect to your cluster (via terminal or Web-IDE) 
+- If not already done, connect to your cluster (via terminal or web IDE) 
 
 - Create a new shell script `helloworld.sh` in the spool directory (`/vol/spool`):
 
@@ -251,7 +251,7 @@ sleep 10
 - Make our helloworld script executable:
 `chmod u+x helloworld.sh`
 
-- Submit this script as array job 50 times : `sbatch --array=1-50 --job-name=helloworld hello-world.sh`
+- Submit this script as array job 50 times: `sbatch --array=1-50 --job-name=helloworld hello-world.sh`
 - See the status of our cluster: `squeue`
 - See the output: `cat slurm-*.out`
 
