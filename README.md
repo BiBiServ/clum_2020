@@ -229,14 +229,13 @@ bibigrid -o configuration.yml --ide <cluster id>
 ```
 
 
-
 ## Hello World, Hello BiBiGrid!
 
 To see how the cluster with Slurm works in action, we start with a typical example : *Hello World !*
 
 - If not already done, connect to your cluster (via terminal or web IDE) 
 
-- Create a new shell script `helloworld.sh` in the spool directory (`/vol/spool`):
+- Create a new shell script `hello-world.sh` in the spool directory (`/vol/spool`):
 
 ```
 #!/bin/bash
@@ -249,27 +248,11 @@ sleep 10
 
 
 - Make our helloworld script executable:
-`chmod u+x helloworld.sh`
+`chmod u+x hello-world.sh`
 
 - Submit this script as an array job 50 times: `sbatch --array=1-50 --job-name=helloworld hello-world.sh`
 - See the status of our cluster: `squeue`
 - See the output: `cat slurm-*.out`
-
-## Manual cluster scaling (NEW)
-In some cases, you may want to scale down your cluster when you don't need all the worker instances or scale up when you need more of them.
-We scale down one worker instance of our first worker batch previously configured.
-
-```BASH
-> bibigrid -o configuration.yml -sd <bibigrid-id> 1 1
-```
-
-Scaling down is quite fast, only the master node has to be reconfigured. Check the number of working nodes running `sinfo` on the master node. Since we need three workers for the 2nd part of this workshop we now scale up by one worker instance ...
-
-```BASH
-> bibigrid -o configuration.yml -su <bibigrid-id> 1 1
-```
-
-... and again check the number of worker nodes using `sinfo`. Scaling up takes some time (a few minutes) since newly added workers are being configured from scratch.
 
 ## Monitoring your cluster setup
 To get an overview about how your cluster is working, you can use *Zabbix* for monitoring.  
@@ -292,6 +275,23 @@ The public IP of your cluster should be visible with the list command `bibigrid 
 You can log in with the `admin` user and the previously set admin password.
 
 For a detailed documentation please visit the [Getting Started Readme](https://github.com/BiBiServ/bibigrid/blob/master/docs/README.md).
+
+
+## Manual cluster scaling (NEW)
+In some cases, you may want to scale down your cluster when you don't need all the worker instances or scale up when you need more of them.
+We scale down one worker instance of our first worker batch previously configured.
+
+```BASH
+> bibigrid -o configuration.yml -sd <bibigrid-id> 1 1
+```
+
+Scaling down is quite fast, only the master node has to be reconfigured. Check the number of working nodes running `sinfo` on the master node. Since we need three workers for the 2nd part of this workshop we now scale up by one worker instance ...
+
+```BASH
+> bibigrid -o configuration.yml -su <bibigrid-id> 1 1
+```
+
+... and again check the number of worker nodes using `sinfo`. Scaling up takes some time (a few minutes) since newly added workers are being configured from scratch.
 
 
 ##  Using Ansible and running a bigger example
