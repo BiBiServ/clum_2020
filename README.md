@@ -1,5 +1,5 @@
 # de.NBI cloud user meeting 2020 - CLUM 2020
-Teaching aids / [slides for the de.NBI cloud user meeting 2020]()  
+Teaching aids / [slides for the de.NBI cloud user meeting 2020](/BiBiGrid_Clum2020.pdf)  
 
 ## Setup of BiBiGrid
 
